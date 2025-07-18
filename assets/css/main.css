@@ -217,11 +217,13 @@ body {
 .menu-link {
   color: var(--white);
   text-decoration: none;
+  font-family: 'StabilGrotesk', 'Inter', sans-serif;
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 900;
   letter-spacing: 2px;
   transition: var(--transition);
   position: relative;
+  text-transform: uppercase;
 }
 .menu-link::after {
   content: '';
@@ -278,6 +280,7 @@ body {
 
 .services-title {
   text-align: center;
+  font-family: 'StabilGrotesk', 'Inter', sans-serif;
   font-size: 4rem;
   font-weight: 900;
   color: var(--black);
@@ -396,7 +399,7 @@ body {
   color: var(--pink);
   margin-right: 2rem;
   min-width: 120px;
-  font-family: var(--font-family);
+  font-family: 'StabilGrotesk', 'Inter', sans-serif;
 }
 
 .accordion details[open] .summary-content::before {
@@ -409,9 +412,10 @@ body {
 
 .summary-content h3 {
   margin: 0 0 1rem 0;
+  font-family: 'StabilGrotesk', 'Inter', sans-serif;
   font-size: 3.5rem;
   color: var(--white);
-  font-weight: 700;
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 2px;
   line-height: 1.1;
@@ -600,13 +604,14 @@ body {
 
 .contact .section-title {
   text-align: left;
+  font-family: 'StabilGrotesk', 'Inter', sans-serif;
   font-size: 2.5rem;
   margin: 0 0 2rem 0;
   color: var(--white);
   position: static;
   transform: none;
   z-index: auto;
-  font-weight: 700;
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 2px;
 }
@@ -883,6 +888,7 @@ body {
 }
 
 .casos-title {
+  font-family: 'StabilGrotesk', 'Inter', sans-serif;
   font-size: 3rem;
   font-weight: 900;
   color: var(--black);
@@ -970,8 +976,9 @@ body {
 }
 
 .caso-title {
+  font-family: 'StabilGrotesk', 'Inter', sans-serif;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 900;
   color: var(--white);
   margin: 0 0 1rem 0;
   line-height: 1.2;
@@ -1273,8 +1280,9 @@ a:focus {
 }
 
 .lightbox-info h3 {
+  font-family: 'StabilGrotesk', 'Inter', sans-serif !important;
   font-size: 2rem !important;
-  font-weight: 700 !important;
+  font-weight: 900 !important;
   color: var(--black) !important;
   margin: 0 0 1rem 0 !important;
   line-height: 1.2 !important;
@@ -1416,4 +1424,39 @@ a:focus {
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
+}
+
+/* ------------------------------------------
+   Clases específicas para StabilGrotesk Black
+------------------------------------------- */
+.stabil-black {
+  font-family: 'StabilGrotesk', 'Inter', sans-serif !important;
+  font-weight: 900 !important;
+}
+
+.stabil-bold {
+  font-family: 'StabilGrotesk', 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+.stabil-regular {
+  font-family: 'StabilGrotesk', 'Inter', sans-serif !important;
+  font-weight: 400 !important;
+}
+
+/* Forzar StabilGrotesk en elementos principales */
+h1, h2, h3, .menu-link, .services-title, .casos-title {
+  font-family: 'StabilGrotesk', 'Inter', sans-serif !important;
+}
+
+/* Títulos principales siempre en Black */
+.services-title,
+.casos-title,
+.summary-content h3,
+.menu-link,
+.contact .section-title,
+.caso-title,
+.lightbox-info h3 {
+  font-family: 'StabilGrotesk', 'Inter', sans-serif !important;
+  font-weight: 900 !important;
 }
