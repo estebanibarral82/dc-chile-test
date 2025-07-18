@@ -272,7 +272,226 @@ class WebsiteApp {
 
   // Carousel functionality - disabled for 3 static cases
   setupCarousel() {
-    console.log('Carousel disabled - showing 3 static cases');
+    console.log('Configurando carousel...');
+    
+    const track = document.getElementById('casos-track');
+    const items = document.querySelectorAll('.caso-item');
+    
+    if (!track || items.length === 0) {
+      console.log('No se encontró el carousel o no hay items');
+      return;
+    }
+    
+    let currentIndex = 0;
+    let isTransitioning = false;
+    const totalItems = items.length;
+    
+    // Función para actualizar la posición del carousel
+    const updateCarousel = () => {
+      if (isTransitioning) return;
+      
+      const isMobile = window.innerWidth <= 768;
+      const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+      
+      let itemWidth, visibleItems;
+      
+      if (isMobile) {
+        itemWidth = 100; // 100vw per item on mobile
+        visibleItems = 1;
+      } else if (isTablet) {
+        itemWidth = 50; // 50vw per item on tablet
+        visibleItems = 2;
+      } else {
+        itemWidth = 33.333333; // 33.33vw per item on desktop
+        visibleItems = 3;
+      }
+      
+      const offset = -(currentIndex * itemWidth);
+      track.style.transform = `translateX(${offset}vw)`;
+      
+      console.log(`Carousel actualizado - Index: ${currentIndex}, Offset: ${offset}vw`);
+    };
+    
+    // Funciones de navegación
+    const nextSlide = () => {
+      if (isTransitioning) return;
+      
+      const isMobile = window.innerWidth <= 768;
+      const maxIndex = isMobile ? totalItems - 1 : totalItems - 3;
+      
+      if (currentIndex < maxIndex) {
+        currentIndex++;
+      } else {
+        currentIndex = 0; // Loop back to start
+      }
+      
+      updateCarousel();
+    };
+    
+    const prevSlide = () => {
+      if (isTransitioning) return;
+      
+      const isMobile = window.innerWidth <= 768;
+      const maxIndex = isMobile ? totalItems - 1 : totalItems - 3;
+      
+      if (currentIndex > 0) {
+        currentIndex--;
+      } else {
+        currentIndex = maxIndex; // Loop to end
+      }
+      
+      updateCarousel();
+    };
+    
+    // Crear controles del carousel
+    const createControls = () => {
+      const carousel = document.querySelector('.casos-carousel');
+      if (!carousel) return;
+      
+      // Remover controles existentes
+      const existingControls = carousel.querySelector('.carousel-controls');
+      if (existingControls) existingControls.remove();
+      
+      const controls = document.createElement('div');
+      controls.className = 'carousel-controls';
+      controls.innerHTML = `
+        <button class="carousel-btn prev-btn" aria-label="Caso anterior">‹</button>
+        <button class="carousel-btn next-btn" aria-label="Siguiente caso">›</button>
+      `;
+      
+      carousel.appendChild(controls);
+      
+      // Event listeners para los controles
+      const prevBtn = controls.querySelector('.prev-btn');
+      const nextBtn = controls.querySelector('.next-btn');
+      
+      if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+      if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    };
+    
+    // Crear indicadores
+    const createIndicators = () => {
+      const carousel = document.querySelector('.casos-carousel');
+      if (!carousel) return;
+      
+      // Remover indicadores existentes
+      const existingIndicators = carousel.querySelector('.carousel-indicators');
+      if (existingIndicators) existingIndicators.remove();
+      
+      const indicators = document.createElement('div');
+      indicators.className = 'carousel-indicators';
+      
+      const isMobile = window.innerWidth <= 768;
+      const totalIndicators = isMobile ? totalItems : totalItems - 2;
+      
+      for (let i = 0; i < totalIndicators; i++) {
+        const indicator = document.createElement('button');
+        indicator.className = `carousel-indicator ${i === 0 ? 'active' : ''}`;
+        indicator.setAttribute('aria-label', `Ir al caso ${i + 1}`);
+        indicator.addEventListener('click', () => {
+          currentIndex = i;
+          updateCarousel();
+          updateIndicators();
+        });
+        indicators.appendChild(indicator);
+      }
+      
+      carousel.appendChild(indicators);
+    };
+    
+    // Actualizar indicadores
+    const updateIndicators = () => {
+      const indicators = document.querySelectorAll('.carousel-indicator');
+      indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentIndex);
+      });
+    };
+    
+    // Soporte para gestos táctiles en móvil
+    let startX = 0;
+    let currentX = 0;
+    let isDown = false;
+    
+    const handleTouchStart = (e) => {
+      isDown = true;
+      startX = e.touches ? e.touches[0].clientX : e.clientX;
+      track.style.transition = 'none';
+    };
+    
+    const handleTouchMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      
+      currentX = e.touches ? e.touches[0].clientX : e.clientX;
+      const diffX = currentX - startX;
+      
+      // Aplicar transformación temporal
+      const currentOffset = -(currentIndex * (window.innerWidth <= 768 ? 100 : 33.333333));
+      const newOffset = currentOffset + (diffX / window.innerWidth) * 100;
+      track.style.transform = `translateX(${newOffset}vw)`;
+    };
+    
+    const handleTouchEnd = () => {
+      if (!isDown) return;
+      isDown = false;
+      
+      track.style.transition = 'transform 0.5s ease';
+      
+      const diffX = currentX - startX;
+      const threshold = window.innerWidth * 0.2; // 20% del ancho de pantalla
+      
+      if (Math.abs(diffX) > threshold) {
+        if (diffX > 0) {
+          prevSlide();
+        } else {
+          nextSlide();
+        }
+      } else {
+        updateCarousel(); // Volver a la posición original
+      }
+      
+      updateIndicators();
+    };
+    
+    // Event listeners para touch
+    if (track) {
+      track.addEventListener('touchstart', handleTouchStart, { passive: false });
+      track.addEventListener('touchmove', handleTouchMove, { passive: false });
+      track.addEventListener('touchend', handleTouchEnd);
+      
+      // También para mouse en desktop
+      track.addEventListener('mousedown', handleTouchStart);
+      track.addEventListener('mousemove', handleTouchMove);
+      track.addEventListener('mouseup', handleTouchEnd);
+      track.addEventListener('mouseleave', handleTouchEnd);
+    }
+    
+    // Manejar cambios de tamaño de ventana
+    const handleResize = () => {
+      currentIndex = 0; // Reset al primer slide
+      updateCarousel();
+      createIndicators();
+      updateIndicators();
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Inicializar
+    createControls();
+    createIndicators();
+    updateCarousel();
+    updateIndicators();
+    
+    // Auto-play opcional (deshabilitado por defecto)
+    const autoPlay = false;
+    if (autoPlay) {
+      setInterval(() => {
+        nextSlide();
+        updateIndicators();
+      }, 5000);
+    }
+    
+    console.log('Carousel configurado correctamente');
   }
 
     // Lightbox functionality
