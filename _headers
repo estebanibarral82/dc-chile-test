@@ -1,12 +1,28 @@
+# Headers for HTML files - No cache for immediate updates
+/*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# Headers for CSS files - Short cache for development
+/assets/css/*
+  Cache-Control: public, max-age=300, must-revalidate
+  ETag: "css-v1.0"
+  
+# Headers for JS files - Short cache for development
+/assets/js/*
+  Cache-Control: public, max-age=300, must-revalidate
+  ETag: "js-v1.0"
+
 # Headers for font files
 /assets/fonts/*
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000
   
-# Headers for CSS files
-/assets/css/*
-  Cache-Control: public, max-age=86400
-  
 # Headers for images
 /assets/img/*
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=3600
+  
+# Headers for videos
+/assets/video/*
+  Cache-Control: public, max-age=3600

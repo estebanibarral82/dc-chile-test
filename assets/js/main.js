@@ -11,6 +11,7 @@ class WebsiteApp {
 
   init() {
     this.addNoJSClass();
+    this.setupCacheManagement();
     this.createToastContainer();
     this.createLoadingOverlay();
     this.setupMobileMenu();
@@ -31,6 +32,91 @@ class WebsiteApp {
   addNoJSClass() {
     document.documentElement.classList.remove('no-js');
     document.documentElement.classList.add('js');
+  }
+
+  // Cache Management for Development
+  setupCacheManagement() {
+    // Check for updates every 5 minutes
+    setInterval(() => this.checkForUpdates(), 5 * 60 * 1000);
+    
+    // Clear cache on page load if in development
+    if (this.isDevelopment()) {
+      this.clearBrowserCache();
+    }
+    
+    // Register service worker updates
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        this.showToast('¡Sitio actualizado! Recargando...', 'info', 'Actualización');
+        setTimeout(() => window.location.reload(), 1500);
+      });
+    }
+  }
+
+  isDevelopment() {
+    return window.location.hostname === 'localhost' || 
+           window.location.hostname === '127.0.0.1' ||
+           window.location.hostname.includes('github.io');
+  }
+
+  clearBrowserCache() {
+    // Clear various browser caches
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        names.forEach(name => {
+          if (name.includes('dc-chile')) {
+            caches.delete(name);
+            console.log('🗑️ Cleared cache:', name);
+          }
+        });
+      });
+    }
+
+    // Force reload stylesheets with new timestamp
+    const stylesheets = document.querySelectorAll('link[rel="stylesheet"]');
+    stylesheets.forEach(link => {
+      const href = link.href;
+      if (href.includes('main.css')) {
+        const newHref = href.split('?')[0] + '?v=' + Date.now();
+        link.href = newHref;
+        console.log('🔄 Reloaded stylesheet:', newHref);
+      }
+    });
+  }
+
+  checkForUpdates() {
+    // Check if there's a new version by trying to fetch index.html
+    fetch(window.location.href, { 
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
+    })
+    .then(response => response.text())
+    .then(html => {
+      // Check if the HTML has changed by looking for version markers
+      const currentVersion = document.querySelector('link[href*="main.css"]')?.href;
+      const match = html.match(/main\.css\?v=([^"]*)/);
+      const newVersion = match ? match[1] : null;
+      
+      if (newVersion && currentVersion && !currentVersion.includes(newVersion)) {
+        this.showToast(
+          'Hay una nueva versión disponible. Haz clic para actualizar.', 
+          'info', 
+          'Actualización disponible'
+        );
+        
+        // Auto-reload after 3 seconds
+        setTimeout(() => {
+          window.location.reload(true);
+        }, 3000);
+      }
+    })
+    .catch(error => {
+      console.log('No se pudo verificar actualizaciones:', error);
+    });
   }
 
   // Toast notification system

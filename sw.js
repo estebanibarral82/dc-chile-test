@@ -1,18 +1,19 @@
 // Service Worker for Dentsu Creative Chile
 // Provides offline caching and performance improvements
 
-const CACHE_NAME = 'dc-chile-v1.2';
-const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours
+const CACHE_NAME = 'dc-chile-v2.0-20250718';
+const CACHE_EXPIRY = 5 * 60 * 1000; // 5 minutes for development
+const FORCE_UPDATE = true; // Force update during development
 
 // Critical resources to cache immediately
 const CRITICAL_RESOURCES = [
   '/',
   '/index.html',
-  '/assets/css/main.css',
-  '/assets/js/main.js',
+  '/assets/css/main.css?v=20250718',
+  '/assets/js/main.js?v=20250718',
   '/assets/fonts/StabilGrotesk-Black.otf',
   '/assets/fonts/StabilGrotesk-Regular.otf',
-  '/assets/img/DC-home.png'
+  '/assets/img/DC-home1.png'
 ];
 
 // Resources to cache on first request
@@ -85,6 +86,26 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((cachedResponse) => {
+        // During development, always fetch from network for HTML, CSS, JS
+        if (FORCE_UPDATE && (
+          url.pathname.endsWith('.html') ||
+          url.pathname.endsWith('.css') ||
+          url.pathname.endsWith('.js') ||
+          url.pathname === '/'
+        )) {
+          console.log('Force fetching from network:', url.pathname);
+          return fetch(event.request)
+            .then((response) => {
+              if (response.status === 200) {
+                const responseClone = response.clone();
+                caches.open(CACHE_NAME)
+                  .then((cache) => cache.put(event.request, responseClone));
+              }
+              return response;
+            })
+            .catch(() => cachedResponse || new Response('Offline', { status: 503 }));
+        }
+        
         // If we have a cached response, check if it's still fresh
         if (cachedResponse) {
           const cachedDate = new Date(cachedResponse.headers.get('date'));
