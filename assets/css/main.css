@@ -201,10 +201,24 @@ body {
   cursor: pointer;
   line-height: 1;
   transition: var(--transition);
+  z-index: 1001;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
+
 .btn-close:hover {
   color: var(--pink);
   transform: rotate(90deg);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-close:focus {
+  outline: 2px solid var(--pink);
+  outline-offset: 2px;
 }
 .menu-list {
   list-style: none;

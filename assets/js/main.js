@@ -182,6 +182,7 @@ class WebsiteApp {
 
     const openMenu = () => {
       mobileMenu.classList.add('active');
+      menuBtn.classList.add('active');
       mobileMenu.setAttribute('aria-hidden', 'false');
       menuBtn.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
@@ -189,6 +190,7 @@ class WebsiteApp {
 
     const closeMenu = () => {
       mobileMenu.classList.remove('active');
+      menuBtn.classList.remove('active');
       mobileMenu.setAttribute('aria-hidden', 'true');
       menuBtn.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
