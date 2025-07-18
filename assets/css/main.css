@@ -1160,6 +1160,19 @@ a:focus {
   width: 100%;
   max-width: 300px;
   margin: 0 auto;
+  position: relative;
+}
+
+.submit-btn .btn-loading {
+  display: none;
+}
+
+.submit-btn.loading .btn-text {
+  display: none;
+}
+
+.submit-btn.loading .btn-loading {
+  display: inline;
 }
 
 .submit-btn:hover {
