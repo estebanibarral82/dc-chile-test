@@ -133,16 +133,24 @@ class WebsiteApp {
 
     // Lightbox functionality
   setupLightbox() {
+    console.log('Configurando lightbox...');
     const casoItems = document.querySelectorAll('.caso-item');
+    console.log('Casos encontrados:', casoItems.length);
     
-    casoItems.forEach(item => {
+    casoItems.forEach((item, index) => {
+      console.log(`Configurando caso ${index + 1}:`, item.dataset.video);
       item.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('Caso clickeado:', item.dataset.video);
         
         const videoUrl = item.dataset.video;
-        const category = item.querySelector('.caso-category').textContent;
-        const title = item.querySelector('.caso-title').textContent;
-        const description = item.querySelector('.caso-description').textContent;
+        const category = item.querySelector('.caso-category')?.textContent || 'Video';
+        const title = item.querySelector('.caso-title')?.textContent || 'Título';
+        const description = item.querySelector('.caso-description')?.textContent || 'Descripción';
+        
+        console.log('Datos del caso:', { videoUrl, category, title, description });
         
         this.showLightbox(videoUrl, category, title, description);
       });
@@ -166,8 +174,19 @@ class WebsiteApp {
   }
 
   showLightbox(videoUrl, category, title, description) {
+    console.log('Mostrando lightbox con:', { videoUrl, category, title, description });
+    
     const lightbox = document.getElementById('lightbox');
+    if (!lightbox) {
+      console.error('Lightbox no encontrado!');
+      return;
+    }
+    
     const content = lightbox.querySelector('.lightbox-content');
+    if (!content) {
+      console.error('Lightbox content no encontrado!');
+      return;
+    }
     
     // Clear content but preserve close button structure
     content.innerHTML = `
@@ -184,12 +203,16 @@ class WebsiteApp {
     const closeBtn = content.querySelector('.lightbox-close');
     
     // Setup close button
-    closeBtn.addEventListener('click', () => {
+    closeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('Cerrando lightbox por botón');
       this.closeLightbox();
     });
     
     // Extract YouTube ID
     const youtubeId = this.extractYouTubeId(videoUrl);
+    console.log('YouTube ID extraído:', youtubeId);
     
     if (youtubeId) {
       // Create iframe for YouTube videos
@@ -200,6 +223,7 @@ class WebsiteApp {
       iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
       
       videoContainer.appendChild(iframe);
+      console.log('Iframe de YouTube creado');
     } else {
       // Fallback for non-YouTube videos
       const video = document.createElement('video');
@@ -209,17 +233,21 @@ class WebsiteApp {
       video.className = 'lightbox-video';
       
       videoContainer.appendChild(video);
+      console.log('Video HTML5 creado');
     }
     
     // Show lightbox
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
     
+    console.log('Lightbox mostrado');
+    
     // Focus management for accessibility
     closeBtn.focus();
   }
 
   closeLightbox() {
+    console.log('Cerrando lightbox...');
     const lightbox = document.getElementById('lightbox');
     if (lightbox) {
       lightbox.classList.remove('active');
@@ -230,9 +258,24 @@ class WebsiteApp {
       if (content) {
         const videoContainer = content.querySelector('.lightbox-video-container');
         if (videoContainer) {
+          // Stop videos and iframes
+          const videos = videoContainer.querySelectorAll('video');
+          const iframes = videoContainer.querySelectorAll('iframe');
+          
+          videos.forEach(v => {
+            v.pause();
+            v.src = '';
+          });
+          
+          iframes.forEach(i => {
+            i.src = '';
+          });
+          
           videoContainer.innerHTML = '';
+          console.log('Contenido de video limpiado');
         }
       }
+      console.log('Lightbox cerrado');
     }
   }
 
