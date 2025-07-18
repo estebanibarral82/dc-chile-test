@@ -214,6 +214,17 @@ class WebsiteApp {
       });
     });
 
+    // Setup "Nuestro Trabajo" button
+    const trabajoBtn = document.getElementById('trabajo-btn');
+    if (trabajoBtn) {
+      trabajoBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Botón Nuestro Trabajo clickeado');
+        
+        this.showVideoOnlyLightbox('https://www.youtube.com/watch?v=zoSeLSEFUrQ&t=8s');
+      });
+    }
+
     // Setup background click and escape key
     const lightbox = document.getElementById('lightbox');
     if (lightbox) {
@@ -256,6 +267,9 @@ class WebsiteApp {
         <p>${description}</p>
       </div>
     `;
+    
+    // Remove video-only class if present
+    content.classList.remove('video-only');
     
     const videoContainer = content.querySelector('.lightbox-video-container');
     const closeBtn = content.querySelector('.lightbox-close');
@@ -304,6 +318,77 @@ class WebsiteApp {
     closeBtn.focus();
   }
 
+  showVideoOnlyLightbox(videoUrl) {
+    console.log('Mostrando lightbox solo con video:', videoUrl);
+    
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox) {
+      console.error('Lightbox no encontrado!');
+      return;
+    }
+    
+    const content = lightbox.querySelector('.lightbox-content');
+    if (!content) {
+      console.error('Lightbox content no encontrado!');
+      return;
+    }
+    
+    // Clear content and create video-only structure
+    content.innerHTML = `
+      <button class="lightbox-close" aria-label="Cerrar video">&times;</button>
+      <div class="lightbox-video-container"></div>
+    `;
+    
+    // Add video-only class for styling
+    content.classList.add('video-only');
+    
+    const videoContainer = content.querySelector('.lightbox-video-container');
+    const closeBtn = content.querySelector('.lightbox-close');
+    
+    // Setup close button
+    closeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('Cerrando lightbox por botón');
+      this.closeLightbox();
+    });
+    
+    // Extract YouTube ID
+    const youtubeId = this.extractYouTubeId(videoUrl);
+    console.log('YouTube ID extraído:', youtubeId);
+    
+    if (youtubeId) {
+      // Create iframe for YouTube videos with autoplay
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1&fs=1&iv_load_policy=3`;
+      iframe.className = 'lightbox-video';
+      iframe.allowFullscreen = true;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      
+      videoContainer.appendChild(iframe);
+      console.log('Iframe de YouTube creado para video solo');
+    } else {
+      // Fallback for non-YouTube videos
+      const video = document.createElement('video');
+      video.src = videoUrl;
+      video.controls = true;
+      video.autoplay = true;
+      video.className = 'lightbox-video';
+      
+      videoContainer.appendChild(video);
+      console.log('Video HTML5 creado');
+    }
+    
+    // Show lightbox
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    console.log('Lightbox con video solo mostrado');
+    
+    // Focus management for accessibility
+    closeBtn.focus();
+  }
+
   closeLightbox() {
     console.log('Cerrando lightbox...');
     const lightbox = document.getElementById('lightbox');
@@ -314,6 +399,9 @@ class WebsiteApp {
       // Clear video content to stop playback
       const content = lightbox.querySelector('.lightbox-content');
       if (content) {
+        // Remove video-only class
+        content.classList.remove('video-only');
+        
         const videoContainer = content.querySelector('.lightbox-video-container');
         if (videoContainer) {
           // Stop videos and iframes
