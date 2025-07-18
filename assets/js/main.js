@@ -131,42 +131,10 @@ class WebsiteApp {
     console.log('Carousel disabled - showing 3 static cases');
   }
 
-  // Lightbox functionality
+    // Lightbox functionality
   setupLightbox() {
-    // Create close function as a simple global function
-    window.closeLightboxModal = function() {
-      const lightbox = document.getElementById('lightbox');
-      if (lightbox) {
-        // Stop all media
-        const videos = lightbox.querySelectorAll('video');
-        const iframes = lightbox.querySelectorAll('iframe');
-        
-        videos.forEach(v => {
-          v.pause();
-          v.src = '';
-        });
-        
-        iframes.forEach(i => {
-          i.src = '';
-        });
-        
-        // Remove video containers
-        const containers = lightbox.querySelectorAll('.lightbox-video-container');
-        containers.forEach(c => c.remove());
-        
-        // Hide lightbox
-        lightbox.style.display = 'none';
-        lightbox.classList.remove('active');
-        
-        // Restore body scroll
-        document.body.style.overflow = '';
-        
-        console.log('Lightbox closed successfully');
-      }
-    };
-
-    // Setup caso item clicks
     const casoItems = document.querySelectorAll('.caso-item');
+    
     casoItems.forEach(item => {
       item.addEventListener('click', (e) => {
         e.preventDefault();
@@ -180,26 +148,19 @@ class WebsiteApp {
       });
     });
 
-    // Setup close button
-    const closeBtn = document.querySelector('.lightbox-close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', window.closeLightboxModal);
-    }
-
-    // Setup background click
+    // Setup background click and escape key
     const lightbox = document.getElementById('lightbox');
     if (lightbox) {
       lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) {
-          window.closeLightboxModal();
+          this.closeLightbox();
         }
       });
     }
 
-    // Setup escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        window.closeLightboxModal();
+        this.closeLightbox();
       }
     });
   }
@@ -208,69 +169,71 @@ class WebsiteApp {
     const lightbox = document.getElementById('lightbox');
     const content = lightbox.querySelector('.lightbox-content');
     
-    // Clear all content
-    content.innerHTML = '';
+    // Clear content but preserve close button structure
+    content.innerHTML = `
+      <button class="lightbox-close" aria-label="Cerrar video">&times;</button>
+      <div class="lightbox-video-container"></div>
+      <div class="lightbox-info">
+        <div class="caso-category">${category}</div>
+        <h3>${title}</h3>
+        <p>${description}</p>
+      </div>
+    `;
+    
+    const videoContainer = content.querySelector('.lightbox-video-container');
+    const closeBtn = content.querySelector('.lightbox-close');
+    
+    // Setup close button
+    closeBtn.addEventListener('click', () => {
+      this.closeLightbox();
+    });
     
     // Extract YouTube ID
     const youtubeId = this.extractYouTubeId(videoUrl);
     
     if (youtubeId) {
-      // Create iframe directly without any wrapper
+      // Create iframe for YouTube videos
       const iframe = document.createElement('iframe');
       iframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1`;
-      iframe.style.cssText = `
-        width: 100%;
-        height: 100%;
-        border: none;
-        border-radius: 8px;
-      `;
+      iframe.className = 'lightbox-video';
       iframe.allowFullscreen = true;
       iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
       
-      content.appendChild(iframe);
+      videoContainer.appendChild(iframe);
     } else {
       // Fallback for non-YouTube videos
       const video = document.createElement('video');
       video.src = videoUrl;
       video.controls = true;
       video.autoplay = true;
-      video.style.cssText = `
-        width: 100%;
-        height: 100%;
-        border-radius: 8px;
-        object-fit: cover;
-      `;
+      video.className = 'lightbox-video';
       
-      content.appendChild(video);
+      videoContainer.appendChild(video);
     }
     
-    // Create close button
-    const closeBtn = document.createElement('button');
-    closeBtn.innerHTML = '&times;';
-    closeBtn.className = 'lightbox-close';
-    closeBtn.onclick = window.closeLightboxModal;
-    
-    content.appendChild(closeBtn);
-    
     // Show lightbox
-    lightbox.style.cssText = `
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      background: rgba(0, 0, 0, 0.9) !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      z-index: 999999 !important;
-      padding: 2rem !important;
-    `;
-    
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    console.log('Pure video lightbox opened');
+    // Focus management for accessibility
+    closeBtn.focus();
+  }
+
+  closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      
+      // Clear video content to stop playback
+      const content = lightbox.querySelector('.lightbox-content');
+      if (content) {
+        const videoContainer = content.querySelector('.lightbox-video-container');
+        if (videoContainer) {
+          videoContainer.innerHTML = '';
+        }
+      }
+    }
   }
 
   extractYouTubeId(url) {
