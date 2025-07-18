@@ -955,17 +955,6 @@ class WebsiteApp {
 
   // Enhanced accessibility
   enhanceAccessibility() {
-    // Add skip links if not present
-    if (!document.querySelector('.skip-links')) {
-      const skipLinks = document.createElement('div');
-      skipLinks.className = 'skip-links';
-      skipLinks.innerHTML = `
-        <a href="#main-content" class="skip-link">Ir al contenido principal</a>
-        <a href="#contact" class="skip-link">Ir al formulario de contacto</a>
-      `;
-      document.body.insertBefore(skipLinks, document.body.firstChild);
-    }
-
     // Enhance focus management
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Tab') {
