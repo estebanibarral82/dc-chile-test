@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://estebanibarral82.github.io/dc-chile-test/sitemap.xml
+
+# Disallow common directories
+Disallow: /assets/fonts/
+Disallow: /.git/

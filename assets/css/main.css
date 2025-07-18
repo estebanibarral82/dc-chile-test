@@ -64,9 +64,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
 }
+
 body {
   margin: 0;
   font-family: var(--font-family);
@@ -74,6 +77,8 @@ body {
   color: var(--black);
   background-color: var(--white);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -527,24 +532,21 @@ body {
 }
 
 .video-container {
-  width: 100%;
-  height: 100vh;
   position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  background: #000;
+  border-radius: 8px;
   overflow: hidden;
 }
 
 .reel-video {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.reel-video:hover {
-  filter: brightness(1.1);
+  border: none;
 }
 
 /* Custom video controls overlay */
@@ -564,6 +566,26 @@ body {
   );
   pointer-events: none;
   z-index: 5;
+}
+
+/* Mejoras de responsividad para video */
+@media (max-width: 768px) {
+  .reel .container {
+    height: 50vh;
+    min-height: 300px;
+  }
+  
+  .video-container {
+    padding-bottom: 50vh;
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reel .container {
+    height: 40vh;
+    min-height: 250px;
+  }
 }
 
 /* ------------------------------------------
@@ -1156,13 +1178,13 @@ a:focus {
   left: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.9) !important;
   display: none !important;
-  align-items: center;
-  justify-content: center;
+  align-items: center !important;
+  justify-content: center !important;
   z-index: 999999 !important;
-  padding: 2rem;
-  box-sizing: border-box;
+  padding: 2rem !important;
+  box-sizing: border-box !important;
 }
 
 .lightbox.active {
@@ -1170,86 +1192,121 @@ a:focus {
 }
 
 .lightbox-content {
-  position: relative;
-  width: 90vw;
-  height: 80vh;
-  max-width: 1200px;
-  background: black;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  position: relative !important;
+  width: 90vw !important;
+  height: 80vh !important;
+  max-width: 1200px !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .lightbox-video-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: black;
+  position: relative !important;
+  width: 100% !important;
+  background: black !important;
+  overflow: hidden !important;
+}
+
+/* Responsive video sizing based on content */
+.lightbox-video-container {
+  height: 60vh !important;
+  min-height: 400px !important;
+  max-height: 70vh !important;
 }
 
 .lightbox-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  object-fit: cover !important;
 }
 
 .lightbox-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  border: none;
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000000;
-  transition: all 0.3s ease;
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  border: none !important;
+  font-size: 1.5rem !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 1000000 !important;
+  transition: all 0.3s ease !important;
 }
 
 .lightbox-close:hover {
-  background: var(--pink);
-  transform: scale(1.1);
+  background: var(--pink) !important;
+  transform: scale(1.1) !important;
 }
 
-/* Hide info section when not needed */
 .lightbox-info {
-  display: none;
+  padding: 2rem !important;
+  background: white !important;
+  flex-shrink: 0;
 }
 
-/* Responsive adjustments */
+.lightbox-info .caso-category {
+  display: inline-block !important;
+  background: var(--pink) !important;
+  color: white !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin-bottom: 1rem !important;
+  border-radius: 20px !important;
+}
+
+.lightbox-info h3 {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: var(--black) !important;
+  margin: 0 0 1rem 0 !important;
+  line-height: 1.2 !important;
+}
+
+.lightbox-info p {
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+  color: var(--dark-gray) !important;
+  margin: 0 !important;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .lightbox {
-    padding: 1rem;
+    padding: 1rem !important;
   }
   
   .lightbox-content {
-    width: 95vw;
-    height: 70vh;
+    width: 95vw !important;
+  }
+  
+  .lightbox-info {
+    padding: 1.5rem !important;
+  }
+  
+  .lightbox-info h3 {
+    font-size: 1.5rem !important;
   }
   
   .lightbox-close {
-    width: 35px;
-    height: 35px;
-    font-size: 1.2rem;
-    top: 0.5rem;
-    right: 0.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .lightbox-content {
-    width: 100vw;
-    height: 60vh;
-    border-radius: 0;
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 1.2rem !important;
   }
 }
 
@@ -1339,276 +1396,6 @@ a:focus {
   outline: 2px solid var(--pink);
   outline-offset: 2px;
 }
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-/* ------------------------------------------
-   Mejora de estilos de enfoque
-------------------------------------------- */
-button:focus,
-input:focus,
-textarea:focus,
-a:focus {
-  outline: 2px solid var(--pink);
-  outline-offset: 2px;
-}
-input:focus,
-textarea:focus,
-a:focus {
-  outline: 2px solid var(--pink);
-  outline-offset: 2px;
-}
-  border: 2px solid var(--white);
-  padding: 1.5rem 4rem;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  min-height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.submit-btn:hover {
-  background: var(--white);
-  color: var(--black);
-}
-
-.submit-btn:active {
-  background: var(--pink);
-  color: var(--white);
-  border-color: var(--pink);
-}
-
-.submit-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-/* ------------------------------------------
-   Lightbox Styles
-------------------------------------------- */
-.lightbox {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  background: rgba(0, 0, 0, 0.9);
-  display: none !important;
-  align-items: center;
-  justify-content: center;
-  z-index: 999999 !important;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-.lightbox.active {
-  display: flex !important;
-}
-
-.lightbox-content {
-  position: relative;
-  width: 95vw;
-  max-width: 1400px;
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-  display: flex;
-  flex-direction: column;
-}
-
-.lightbox-video-container {
-  position: relative;
-  width: 100%;
-  background: black;
-  overflow: hidden;
-}
-
-/* Responsive video sizing based on content */
-.lightbox-video-container {
-  height: 60vh;
-  min-height: 400px;
-  max-height: 70vh;
-}
-
-.lightbox-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  object-fit: cover;
-}
-
-.lightbox-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  border: none;
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000000;
-  transition: all 0.3s ease;
-}
-
-.lightbox-close:hover {
-  background: var(--pink);
-  transform: scale(1.1);
-}
-
-.lightbox-info {
-  padding: 2rem;
-  background: white;
-  flex-shrink: 0;
-}
-
-.lightbox-info .caso-category {
-  display: inline-block;
-  background: var(--pink);
-  color: white;
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
-  border-radius: 20px;
-}
-
-.lightbox-info h3 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--black);
-  margin: 0 0 1rem 0;
-  line-height: 1.2;
-}
-
-.lightbox-info p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--dark-gray);
-  margin: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-  .lightbox-content {
-    width: 95vw;
-  }
-  
-  .lightbox-video-container {
-    height: 55vh;
-    min-height: 350px;
-  }
-}
-
-@media (max-width: 768px) {
-  .lightbox {
-    padding: 0.5rem;
-  }
-  
-  .lightbox-content {
-    width: 98vw;
-    border-radius: 8px;
-  }
-  
-  .lightbox-video-container {
-    height: 45vh;
-    min-height: 250px;
-  }
-  
-  .lightbox-info {
-    padding: 1.5rem;
-  }
-  
-  .lightbox-info h3 {
-    font-size: 1.5rem;
-  }
-  
-  .lightbox-close {
-    width: 35px;
-    height: 35px;
-    font-size: 1.2rem;
-    top: 0.5rem;
-    right: 0.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .lightbox-content {
-    width: 100vw;
-    border-radius: 0;
-  }
-  
-  .lightbox-video-container {
-    height: 40vh;
-    min-height: 220px;
-  }
-  
-  .lightbox-info {
-    padding: 1rem;
-  }
-  
-  .lightbox-info h3 {
-    font-size: 1.3rem;
-  }
-}
-
-/* ------------------------------------------
-   Animaciones
-------------------------------------------- */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-/* ------------------------------------------
-   Mejora de estilos de enfoque
-------------------------------------------- */
-button:focus,
-input:focus,
-textarea:focus,
-a:focus {
-  outline: 2px solid var(--pink);
-  outline-offset: 2px;
-}
-input:focus,
-textarea:focus,
-a:focus {
-  outline: 2px solid var(--pink);
-  outline-offset: 2px;
-}
 .submit-btn {
   background: transparent;
   color: var(--white);
@@ -1654,13 +1441,13 @@ a:focus {
   left: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.9) !important;
   display: none !important;
-  align-items: center;
-  justify-content: center;
+  align-items: center !important;
+  justify-content: center !important;
   z-index: 999999 !important;
-  padding: 1rem;
-  box-sizing: border-box;
+  padding: 1rem !important;
+  box-sizing: border-box !important;
 }
 
 .lightbox.active {
@@ -1668,97 +1455,97 @@ a:focus {
 }
 
 .lightbox-content {
-  position: relative;
-  width: 95vw;
-  max-width: 1400px;
-  background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-  display: flex;
-  flex-direction: column;
+  position: relative !important;
+  width: 95vw !important;
+  max-width: 1400px !important;
+  background: white !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .lightbox-video-container {
-  position: relative;
-  width: 100%;
-  background: black;
-  overflow: hidden;
+  position: relative !important;
+  width: 100% !important;
+  background: black !important;
+  overflow: hidden !important;
 }
 
 /* Responsive video sizing based on content */
 .lightbox-video-container {
-  height: 60vh;
-  min-height: 400px;
-  max-height: 70vh;
+  height: 60vh !important;
+  min-height: 400px !important;
+  max-height: 70vh !important;
 }
 
 .lightbox-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  object-fit: cover;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  object-fit: cover !important;
 }
 
 .lightbox-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  border: none;
-  font-size: 1.5rem;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000000;
-  transition: all 0.3s ease;
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  border: none !important;
+  font-size: 1.5rem !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 1000000 !important;
+  transition: all 0.3s ease !important;
 }
 
 .lightbox-close:hover {
-  background: var(--pink);
-  transform: scale(1.1);
+  background: var(--pink) !important;
+  transform: scale(1.1) !important;
 }
 
 .lightbox-info {
-  padding: 2rem;
-  background: white;
+  padding: 2rem !important;
+  background: white !important;
   flex-shrink: 0;
 }
 
 .lightbox-info .caso-category {
-  display: inline-block;
-  background: var(--pink);
-  color: white;
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
-  border-radius: 20px;
+  display: inline-block !important;
+  background: var(--pink) !important;
+  color: white !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin-bottom: 1rem !important;
+  border-radius: 20px !important;
 }
 
 .lightbox-info h3 {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--black);
-  margin: 0 0 1rem 0;
-  line-height: 1.2;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: var(--black) !important;
+  margin: 0 0 1rem 0 !important;
+  line-height: 1.2 !important;
 }
 
 .lightbox-info p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--dark-gray);
-  margin: 0;
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+  color: var(--dark-gray) !important;
+  margin: 0 !important;
 }
 
 /* Responsive adjustments */
@@ -2141,30 +1928,11 @@ a:focus {
 .submit-btn:active {
   background: var(--dark-gray);
 }
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
-}
-
 /* ------------------------------------------
-   Mejora de estilos de enfoque
+   Animaciones
 ------------------------------------------- */
-button:focus,
-input:focus,
-textarea:focus,
-a:focus {
-  outline: 2px solid var(--pink);
-  outline-offset: 2px;
-}
-input:focus,
-textarea:focus,
-a:focus {
-  outline: 2px solid var(--pink);
-  outline-offset: 2px;
-}
+@keyframes fadeInUp {
+  from {
     opacity: 0;
     transform: translateY(20px);
   }
@@ -2183,6 +1951,250 @@ a:focus {
 button:focus,
 input:focus,
 textarea:focus,
+a:focus {
+  outline: 2px solid var(--pink);
+  outline-offset: 2px;
+}
+input:focus,
+textarea:focus,
+a:focus {
+  outline: 2px solid var(--pink);
+  outline-offset: 2px;
+}
+.submit-btn:active {
+  background: var(--pink);
+  color: var(--white);
+  border-color: var(--pink);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ------------------------------------------
+   Lightbox Styles
+------------------------------------------- */
+.lightbox {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.9) !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 999999 !important;
+  padding: 1rem !important;
+  box-sizing: border-box !important;
+}
+
+.lightbox.active {
+  display: flex !important;
+}
+
+.lightbox-content {
+  position: relative !important;
+  width: 95vw !important;
+  max-width: 1400px !important;
+  background: white !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.lightbox-video-container {
+  position: relative !important;
+  width: 100% !important;
+  background: black !important;
+  overflow: hidden !important;
+}
+
+/* Responsive video sizing based on content */
+.lightbox-video-container {
+  height: 60vh !important;
+  min-height: 400px !important;
+  max-height: 70vh !important;
+}
+
+.lightbox-video {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  object-fit: cover !important;
+}
+
+.lightbox-close {
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  border: none !important;
+  font-size: 1.5rem !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 1000000 !important;
+  transition: all 0.3s ease !important;
+}
+
+.lightbox-close:hover {
+  background: var(--pink) !important;
+  transform: scale(1.1) !important;
+}
+
+.lightbox-info {
+  padding: 2rem !important;
+  background: white !important;
+  flex-shrink: 0;
+}
+
+.lightbox-info .caso-category {
+  display: inline-block !important;
+  background: var(--pink) !important;
+  color: white !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin-bottom: 1rem !important;
+  border-radius: 20px !important;
+}
+
+.lightbox-info h3 {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: var(--black) !important;
+  margin: 0 0 1rem 0 !important;
+  line-height: 1.2 !important;
+}
+
+.lightbox-info p {
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+  color: var(--dark-gray) !important;
+  margin: 0 !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lightbox {
+    padding: 1rem !important;
+  }
+  
+  .lightbox-content {
+    width: 95vw !important;
+  }
+  
+  .lightbox-info {
+    padding: 1.5rem !important;
+  }
+  
+  .lightbox-info h3 {
+    font-size: 1.5rem !important;
+  }
+  
+  .lightbox-close {
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 1.2rem !important;
+  }
+}
+
+.btn-loading {
+  display: none;
+}
+
+.submit-btn.loading .btn-text {
+  display: none;
+}
+
+.submit-btn.loading .btn-loading {
+  display: inline;
+}
+
+.submit-btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid var(--white);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  /* ...existing code... */
+  
+  .submit-btn {
+    padding: 1.25rem 3rem;
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  /* ...existing code... */
+  
+  .submit-btn {
+    padding: 1rem 2rem;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+}
+
+.submit-btn:active {
+  background: var(--dark-gray);
+}
+
+/* ------------------------------------------
+   Animaciones
+------------------------------------------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* ------------------------------------------
+   Mejora de estilos de enfoque
+------------------------------------------- */
+button:focus,
+input:focus,
+textarea:focus,
+a:focus {
+  outline: 2px solid var(--pink);
+  outline-offset: 2px;
+}
 a:focus {
   outline: 2px solid var(--pink);
   outline-offset: 2px;

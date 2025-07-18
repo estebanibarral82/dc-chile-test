@@ -1,0 +1,14 @@
+# GitHub Pages Configuration
+plugins:
+  - jekyll-sitemap
+
+# Include files
+include:
+  - _headers
+  - robots.txt
+  - sitemap.xml
+
+# Exclude files
+exclude:
+  - README.md
+  - .gitignore
