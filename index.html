@@ -4,227 +4,416 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dentsu Creative Chile</title>
+  <meta name="description" content="Dentsu Creative Chile - Soluciones creativas integrales con corazón local y alcance global">
   <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="preload" href="assets/img/DC-home.png" as="image">
 </head>
 <body>
+  <!-- Skip to content for accessibility -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
   <!-- 1. Banner con menú hamburguesa y <img> responsive -->
-  <section id="banner" class="banner">
+  <header id="banner" class="banner">
     <img src="assets/img/DC-home.png" alt="Dentsu Creative Chile" class="banner-img" />
-    <button id="btn-menu" class="hamburger" aria-label="Abrir menú">
-      <span></span><span></span><span></span>
+    <button id="btn-menu" class="hamburger" aria-label="Abrir menú" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
     </button>
-  </section>
+  </header>
 
   <!-- Menú overlay móvil -->
-  <nav id="mobile-menu" class="mobile-menu">
-    <button id="btn-close" class="btn-close" aria-label="Cerrar menú">&times;</button>
-    <ul>
-      <li><a href="#services">SERVICIOS</a></li>
-      <li><a href="#reel">REEL</a></li>
-      <li><a href="#contact">CONTACTO</a></li>
-    </ul>
-  </nav>
-
-  <!-- 2. Servicios con acordeón -->
-  <section id="services" class="services">
-    <div class="intro">
-      <p>
-        En Dentsu Creative Chile diseñamos soluciones creativas integrales que combinan estrategia, innovación, craft y ejecución 
-        para ayudar a las marcas a crecer, diferenciarse y conectar con las personas. Todo lo hacemos con 
-        <strong>CORAZÓN LOCAL, ALCANCE GLOBAL</strong>.
-      </p>
-    </div>
-    <div class="accordion">
-      <!-- Brand -->
-      <details>
-        <summary>
-          <div class="summary-content">
-            <div>
-              <h3>Brand</h3>
-              <p>Ayudamos a las marcas a encontrar su voz, propósito y narrativa propia. Creamos ideas poderosas que transforman desde el ADN interno hasta cada punto de contacto con sus audiencias.</p>
-            </div>
-            <span class="icon">+</span>
-          </div>
-        </summary>
-        <div class="details-content">
-          <ul>
-            <li>
-              <h4>Posicionamiento e Identidad de Marca</h4>
-              <p>Diseñamos marcas vivas, relevantes y coherentes. Desarrollamos plataformas de marca con propósito, identidad visual y verbal, y sistemas escalables que fortalecen su conexión con las personas.</p>
-            </li>
-            <li>
-              <h4>Campañas Integradas</h4>
-              <p>Ideamos campañas creativas que viven en múltiples medios: desde el retail hasta el metaverso. Una gran idea madre y una ejecución impecable que se adapta a todos los formatos y plataformas.</p>
-            </li>
-            <li>
-              <h4>Experiencias de Marca</h4>
-              <p>Generamos momentos memorables a través de eventos, experiencias inmersivas o espacios cotidianos, creando impacto emocional y conversión real.</p>
-            </li>
-          </ul>
-        </div>
-      </details>
-
-      <!-- Estrategia -->
-      <details>
-        <summary>
-          <div class="summary-content">
-            <div>
-              <h3>Estrategia</h3>
-              <p>Combinamos investigación, datos y creatividad para construir marcas relevantes y sostenibles. Nuestra mirada estratégica conecta lo que la marca es con lo que la gente necesita.</p>
-            </div>
-            <span class="icon">+</span>
-          </div>
-        </summary>
-        <div class="details-content">
-          <ul>
-            <li>
-              <h4>Estrategia de Marca y Negocio</h4>
-              <p>Definimos propósito, posicionamiento y narrativa desde insights reales y culturalmente significativos. Nuestra metodología propia nos permite transformar marcas desde adentro hacia afuera.</p>
-            </li>
-            <li>
-              <h4>Estrategia de Experiencia e Innovación</h4>
-              <p>Identificamos oportunidades y diseñamos experiencias significativas. Utilizamos mapas de comportamiento, innovación ágil y co-creación para construir conexiones más humanas.</p>
-            </li>
-            <li>
-              <h4>Estrategia Social y de Contenidos</h4>
-              <p>Creamos planes de contenido que resuenan en cultura y negocio. Integramos data, marca y tendencias para diseñar mensajes que activan comunidades y aceleran el crecimiento.</p>
-            </li>
-          </ul>
-        </div>
-      </details>
-
-      <!-- Creatividad -->
-      <details>
-        <summary>
-          <div class="summary-content">
-            <div>
-              <h3>Creatividad</h3>
-              <p>La creatividad es el corazón de lo que hacemos. Creamos ideas relevantes, frescas y valientes que emocionan, diferencian y movilizan.</p>
-            </div>
-            <span class="icon">+</span>
-          </div>
-        </summary>
-        <div class="details-content">
-          <ul>
-            <li>
-              <h4>Conceptualización y Dirección Creativa</h4>
-              <p>Desarrollamos ideas madre potentes que sostienen campañas integradas y plataformas de comunicación con impacto cultural y comercial.</p>
-            </li>
-            <li>
-              <h4>Craft, Arte y Redacción</h4>
-              <p>Diseñamos con detalle y propósito. Desde la elección de una tipografía hasta el tono exacto de un copy, cada pieza se construye para dejar huella.</p>
-            </li>
-          </ul>
-        </div>
-      </details>
-
-      <!-- Producción -->
-      <details>
-        <summary>
-          <div class="summary-content">
-            <div>
-              <h3>Producción</h3>
-              <p>Hacemos realidad las ideas con excelencia técnica, cuidado estético y eficiencia. Desde una pieza digital hasta un spot de TV, producimos a escala y con sentido.</p>
-            </div>
-            <span class="icon">+</span>
-          </div>
-        </summary>
-        <div class="details-content">
-          <ul>
-            <li>
-              <h4>Producción Audiovisual y Fotográfica</h4>
-              <p>Creamos contenido visual poderoso: comerciales, piezas para redes, documentales, shootings. Dirigimos, filmamos, editamos y postproducimos con estándar de alto nivel.</p>
-            </li>
-            <li>
-              <h4>Diseño Gráfico y Producción de Piezas</h4>
-              <p>Diseñamos piezas digitales y offline para todo tipo de medios. Desde key visuals hasta brochures o pantallas LED, con precisión y calidad artesanal.</p>
-            </li>
-            <li>
-              <h4>Eventos y Activaciones</h4>
-              <p>Producimos experiencias en vivo, activaciones BTL, pop-up stores, lanzamientos, patrocinios y tours. Conectamos marcas y personas en el mundo real.</p>
-            </li>
-          </ul>
-        </div>
-      </details>
-
-      <!-- Social Media -->
-      <details>
-        <summary>
-          <div class="summary-content">
-            <div>
-              <h3>Social Media</h3>
-              <p>Hacemos que las marcas vivan en lo social con coherencia, velocidad y creatividad. Integramos estrategia, cultura y contenido para construir comunidades con propósito.</p>
-            </div>
-            <span class="icon">+</span>
-          </div>
-        </summary>
-        <div class="details-content">
-          <ul>
-            <li>
-              <h4>Estrategia y Planificación de Contenidos</h4>
-              <p>Diseñamos grillas mensuales, planes editoriales y formatos a medida. Unimos objetivos de marca con dinámicas sociales reales.</p>
-            </li>
-            <li>
-              <h4>Producción de Contenido Social</h4>
-              <p>Creamos contenidos ágiles, pensados para cada plataforma. Desde una story en IG hasta una mini serie en YouTube: todo se produce in-house, con rapidez y craft.</p>
-            </li>
-            <li>
-              <h4>Influencer Marketing y Reportería</h4>
-              <p>Seleccionamos, coordinamos y medimos colaboraciones con creadores. Nos aseguramos de que cada campaña tenga resultados, impacto y aprendizajes accionables.</p>
-            </li>
-          </ul>
-        </div>
-      </details>
-
-    </div>
-  </section>
-
-  <!-- 3. Video de reel -->
-  <section id="reel" class="reel">
-    <h2>Nuestro Reel</h2>
-    <div class="video-container">
-      <video src="assets/video/DC_2025_HYPEREEL.mp4" controls class="reel-video"></video>
-    </div>
-  </section>
-
-  <!-- 4. Formulario de contacto -->
-  <section id="contact" class="contact">
-    <div class="container">
-      <div class="info">
-        <h3>Contáctanos</h3>
-        <p>Badajoz 45, Piso 9<br>Las Condes, Santiago</p>
-        <p>General: <a href="mailto:general@dentsu.com">general@dentsu.com</a></p>
-        <p>New business: <a href="mailto:newbusiness@dentsu.com">newbusiness@dentsu.com</a></p>
+  <nav id="mobile-menu" class="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu-content">
+      <button id="btn-close" class="btn-close" aria-label="Cerrar menú">&times;</button>
+      <ul class="menu-list">
+        <li><a href="#banner" class="menu-link">INICIO</a></li>
+        <li><a href="#services" class="menu-link">SERVICIOS</a></li>
+        <li><a href="#reel" class="menu-link">REEL</a></li>
+        <li><a href="#casos" class="menu-link">CASOS</a></li>
+        <li><a href="#contact" class="menu-link">CONTACTO</a></li>
+      </ul>
+      
+      <div class="social-links">
+        <a href="https://www.instagram.com/dentsucreativechile" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+        <a href="https://www.tiktok.com/@dentsu_cl" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/company/dentsucreative/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
       </div>
-      <form>
-        <div class="grid2">
-          <div><label>First Name*</label><input type="text" required></div>
-          <div><label>Last Name*</label><input type="text" required></div>
-          <div><label>Job Title*</label><input type="text" required></div>
-          <div><label>Email*</label><input type="email" required></div>
-          <div><label>Company*</label><input type="text" required></div>
-          <div><label>Phone*</label><input type="text" required></div>
+    </nav>
+
+  <!-- Main content -->
+  <main id="main-content">
+    <!-- 2. Servicios con acordeón -->
+    <section id="services" class="services">
+      <div class="intro">
+        <div class="container">
+          <h2 class="services-title">Transformative Creativity</h2>
+          <p class="intro-text">
+            En Dentsu Creative Chile diseñamos soluciones creativas integrales que combinan estrategia, innovación, craft y ejecución 
+            para ayudar a las marcas a crecer, diferenciarse y conectar con las personas. Todo lo hacemos con 
+            <strong class="highlight">CORAZÓN LOCAL, ALCANCE GLOBAL</strong>.
+          </p>
         </div>
-        <div>
-          <label>Message*</label>
-          <textarea rows="4" required placeholder="Describe tu proyecto…"></textarea>
+      </div>
+      
+      <div class="accordion" role="region" aria-label="Servicios">
+        <!-- Brand -->
+        <details>
+          <summary>
+            <div class="summary-content">
+              <div>
+                <h3>Brand</h3>
+                <p>Ayudamos a las marcas a encontrar su voz, propósito y narrativa propia. Creamos ideas poderosas que transforman desde el ADN interno hasta cada punto de contacto con sus audiencias.</p>
+              </div>
+              <span class="icon">+</span>
+            </div>
+          </summary>
+          <div class="details-content">
+            <ul>
+              <li>
+                <h4>Posicionamiento e Identidad de Marca</h4>
+                <p>Diseñamos marcas vivas, relevantes y coherentes. Desarrollamos plataformas de marca con propósito, identidad visual y verbal, y sistemas escalables que fortalecen su conexión con las personas.</p>
+              </li>
+              <li>
+                <h4>Campañas Integradas</h4>
+                <p>Ideamos campañas creativas que viven en múltiples medios: desde el retail hasta el metaverso. Una gran idea madre y una ejecución impecable que se adapta a todos los formatos y plataformas.</p>
+              </li>
+              <li>
+                <h4>Experiencias de Marca</h4>
+                <p>Generamos momentos memorables a través de eventos, experiencias inmersivas o espacios cotidianos, creando impacto emocional y conversión real.</p>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Estrategia -->
+        <details>
+          <summary>
+            <div class="summary-content">
+              <div>
+                <h3>Estrategia</h3>
+                <p>Combinamos investigación, datos y creatividad para construir marcas relevantes y sostenibles. Nuestra mirada estratégica conecta lo que la marca es con lo que la gente necesita.</p>
+              </div>
+              <span class="icon">+</span>
+            </div>
+          </summary>
+          <div class="details-content">
+            <ul>
+              <li>
+                <h4>Estrategia de Marca y Negocio</h4>
+                <p>Definimos propósito, posicionamiento y narrativa desde insights reales y culturalmente significativos. Nuestra metodología propia nos permite transformar marcas desde adentro hacia afuera.</p>
+              </li>
+              <li>
+                <h4>Estrategia de Experiencia e Innovación</h4>
+                <p>Identificamos oportunidades y diseñamos experiencias significativas. Utilizamos mapas de comportamiento, innovación ágil y co-creación para construir conexiones más humanas.</p>
+              </li>
+              <li>
+                <h4>Estrategia Social y de Contenidos</h4>
+                <p>Creamos planes de contenido que resuenan en cultura y negocio. Integramos data, marca y tendencias para diseñar mensajes que activan comunidades y aceleran el crecimiento.</p>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Creatividad -->
+        <details>
+          <summary>
+            <div class="summary-content">
+              <div>
+                <h3>Creatividad</h3>
+                <p>La creatividad es el corazón de lo que hacemos. Creamos ideas relevantes, frescas y valientes que emocionan, diferencian y movilizan.</p>
+              </div>
+              <span class="icon">+</span>
+            </div>
+          </summary>
+          <div class="details-content">
+            <ul>
+              <li>
+                <h4>Conceptualización y Dirección Creativa</h4>
+                <p>Desarrollamos ideas madre potentes que sostienen campañas integradas y plataformas de comunicación con impacto cultural y comercial.</p>
+              </li>
+              <li>
+                <h4>Craft, Arte y Redacción</h4>
+                <p>Diseñamos con detalle y propósito. Desde la elección de una tipografía hasta el tono exacto de un copy, cada pieza se construye para dejar huella.</p>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Producción -->
+        <details>
+          <summary>
+            <div class="summary-content">
+              <div>
+                <h3>Producción</h3>
+                <p>Hacemos realidad las ideas con excelencia técnica, cuidado estético y eficiencia. Desde una pieza digital hasta un spot de TV, producimos a escala y con sentido.</p>
+              </div>
+              <span class="icon">+</span>
+            </div>
+          </summary>
+          <div class="details-content">
+            <ul>
+              <li>
+                <h4>Producción Audiovisual y Fotográfica</h4>
+                <p>Creamos contenido visual poderoso: comerciales, piezas para redes, documentales, shootings. Dirigimos, filmamos, editamos y postproducimos con estándar de alto nivel.</p>
+              </li>
+              <li>
+                <h4>Diseño Gráfico y Producción de Piezas</h4>
+                <p>Diseñamos piezas digitales y offline para todo tipo de medios. Desde key visuals hasta brochures o pantallas LED, con precisión y calidad artesanal.</p>
+              </li>
+              <li>
+                <h4>Eventos y Activaciones</h4>
+                <p>Producimos experiencias en vivo, activaciones BTL, pop-up stores, lanzamientos, patrocinios y tours. Conectamos marcas y personas en el mundo real.</p>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Social Media -->
+        <details>
+          <summary>
+            <div class="summary-content">
+              <div>
+                <h3>Social Media</h3>
+                <p>Hacemos que las marcas vivan en lo social con coherencia, velocidad y creatividad. Integramos estrategia, cultura y contenido para construir comunidades con propósito.</p>
+              </div>
+              <span class="icon">+</span>
+            </div>
+          </summary>
+          <div class="details-content">
+            <ul>
+              <li>
+                <h4>Estrategia y Planificación de Contenidos</h4>
+                <p>Diseñamos grillas mensuales, planes editoriales y formatos a medida. Unimos objetivos de marca con dinámicas sociales reales.</p>
+              </li>
+              <li>
+                <h4>Producción de Contenido Social</h4>
+                <p>Creamos contenidos ágiles, pensados para cada plataforma. Desde una story en IG hasta una mini serie en YouTube: todo se produce in-house, con rapidez y craft.</p>
+              </li>
+              <li>
+                <h4>Influencer Marketing y Reportería</h4>
+                <p>Seleccionamos, coordinamos y medimos colaboraciones con creadores. Nos aseguramos de que cada campaña tenga resultados, impacto y aprendizajes accionables.</p>
+              </li>
+            </ul>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- 3. Video de reel -->
+    <section id="reel" class="reel">
+      <div class="container">
+        <div class="video-container">
+          <video 
+            src="assets/video/DC_2025_HYPEREEL.mp4" 
+            controls 
+            class="reel-video"
+            preload="metadata"
+            poster="assets/img/video-poster.jpg"
+            muted
+            loop
+            playsinline>
+            Tu navegador no soporta la reproducción de video.
+          </video>
         </div>
-        <div class="checkboxes">
-          <label><input type="checkbox"> I agree to receive information from Dentsu Creative</label>
-          <label><input type="checkbox" required> I agree to the Terms and Conditions*</label>
-          <label><input type="checkbox" required> I agree to the Data privacy policy*</label>
+      </div>
+    </section>
+
+    <!-- 4. Casos destacados -->
+    <section id="casos" class="casos">
+      <div class="container">
+        <h2 class="casos-title">Casos Destacados</h2>
+      </div>
+      
+      <div class="casos-carousel">
+        <div class="casos-track" id="casos-track">
+          <article class="caso-item" data-video="https://www.youtube.com/watch?v=BI1kPMin1qg">
+            <div class="caso-image">
+              <img src="assets/img/16hrs.png" alt="16 horas, te hace bien - Calzados Gino" loading="lazy">
+              <div class="caso-overlay">
+                <span class="caso-category">TV Commercial</span>
+                <h3 class="caso-title">16 horas, te hace bien</h3>
+                <p class="caso-description">Campaña para Calzados Gino que celebra la comodidad con estilo. Si los pies están bien, todo está bien, incluso cuando el día parece no terminar.</p>
+              </div>
+            </div>
+          </article>
+          
+          <article class="caso-item" data-video="https://www.youtube.com/shorts/NLOk7Bd9uzc">
+            <div class="caso-image">
+              <img src="assets/img/gourmet.png" alt="Menú Musical con IA - Gourmet" loading="lazy">
+              <div class="caso-overlay">
+                <span class="caso-category">Digital Innovation</span>
+                <h3 class="caso-title">Menú Musical con IA</h3>
+                <p class="caso-description">Con IA transformamos las recetas típicas de Fiestas Patrias en canciones con sabor local. Los ritmos chilenos llegaron a Spotify como banda sonora oficial.</p>
+              </div>
+            </div>
+          </article>
+          
+          <article class="caso-item" data-video="https://www.youtube.com/watch?v=zM5UJfM7R3s">
+            <div class="caso-image">
+              <img src="assets/img/nmc.png" alt="No más clavos, para todo - Agorex" loading="lazy">
+              <div class="caso-overlay">
+                <span class="caso-category">Brand Campaign</span>
+                <h3 class="caso-title">No más clavos, para todo</h3>
+                <p class="caso-description">Campaña audiovisual para Agorex con una historia simple y directa. Un clavo menos, una solución más. Posicionamiento claro del nuevo producto.</p>
+              </div>
+            </div>
+          </article>
         </div>
-        <button type="submit">Enviar</button>
-      </form>
+      </div>
+    </section>
+
+    <!-- Lightbox for casos videos -->
+    <div id="lightbox" class="lightbox">
+      <div class="lightbox-content">
+        <button class="lightbox-close" aria-label="Cerrar video">&times;</button>
+        <div class="lightbox-info">
+          <span class="caso-category"></span>
+          <h3></h3>
+          <p></p>
+        </div>
+      </div>
     </div>
-  </section>
+
+    <!-- 5. Formulario de contacto -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="contact-content">
+          <div class="info">
+            <h3 class="section-title">Contáctanos</h3>
+            <address class="contact-address">
+              <p>Badajoz 45, Piso 9<br>Las Condes, Santiago</p>
+              <p>General: <a href="mailto:Dentsu.Creative.CL.Comms@dentsu.com" class="email-link">Dentsu.Creative.CL.Comms@dentsu.com</a></p>
+              <p>New Business: <a href="mailto:Dentsu.Creative.CL.NewBiz@dentsu.com" class="email-link">Dentsu.Creative.CL.NewBiz@dentsu.com</a></p>
+            </address>
+            
+            <div class="contact-social">
+              <h4>Síguenos</h4>
+              <div class="contact-social-links">
+                <a href="https://www.instagram.com/dentsucreativechile" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+                <a href="https://www.tiktok.com/@dentsu_cl" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                  </svg>
+                </a>
+                <a href="https://www.linkedin.com/company/dentsucreative/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <form class="contact-form" novalidate>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="firstName">Nombre*</label>
+                <input type="text" id="firstName" name="firstName" required>
+                <span class="error-message" aria-live="polite"></span>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Apellido*</label>
+                <input type="text" id="lastName" name="lastName" required>
+                <span class="error-message" aria-live="polite"></span>
+              </div>
+              <div class="form-group">
+                <label for="jobTitle">Cargo*</label>
+                <input type="text" id="jobTitle" name="jobTitle" required>
+                <span class="error-message" aria-live="polite"></span>
+              </div>
+              <div class="form-group">
+                <label for="email">Email*</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message" aria-live="polite"></span>
+              </div>
+              <div class="form-group">
+                <label for="company">Empresa*</label>
+                <input type="text" id="company" name="company" required>
+                <span class="error-message" aria-live="polite"></span>
+              </div>
+              <div class="form-group">
+                <label for="phone">Teléfono*</label>
+                <input type="tel" id="phone" name="phone" required>
+                <span class="error-message" aria-live="polite"></span>
+              </div>
+              <div class="form-group form-group-full">
+                <label for="message">Mensaje*</label>
+                <textarea id="message" name="message" rows="4" required placeholder="Describe tu proyecto…"></textarea>
+                <span class="error-message" aria-live="polite"></span>
+              </div>
+            </div>
+            
+            <div class="checkboxes">
+              <label class="checkbox-label">
+                <input type="checkbox" name="newsletter"> 
+                <span class="checkmark"></span>
+                Acepto recibir información de Dentsu Creative
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="terms" required> 
+                <span class="checkmark"></span>
+                Acepto los Términos y Condiciones*
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="privacy" required> 
+                <span class="checkmark"></span>
+                Acepto la Política de Privacidad*
+              </label>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+              <span class="btn-text">Enviar</span>
+              <span class="btn-loading" aria-hidden="true">Enviando...</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- 5. Footer -->
-  <footer id="footer">
-    © 2025 Dentsu Creative Chile – Todos los derechos reservados.
+  <footer id="footer" class="footer">
+    <div class="container">
+      <p>&copy; 2025 Dentsu Creative Chile – Todos los derechos reservados.</p>
+      
+      <div class="footer-social">
+        <a href="https://www.instagram.com/dentsucreativechile" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+        <a href="https://www.tiktok.com/@dentsu_cl" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/company/dentsucreative/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
   </footer>
 
-  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
