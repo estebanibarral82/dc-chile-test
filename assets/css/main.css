@@ -457,8 +457,8 @@ body {
 
 .details-content {
   padding: 1.5rem 3rem 2rem 3rem;
-  border-top: 1px solid rgba(255, 62, 150, 0.2);
-  background: rgba(248, 249, 250, 0.8);
+  border-top: 1px solid rgba(241, 166, 166, 0.3);
+  background: var(--pink);
   overflow: hidden;
 }
 
@@ -474,7 +474,7 @@ body {
 .details-content li {
   position: relative;
   padding: 1.25rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
 }
 
@@ -484,7 +484,7 @@ body {
 
 .details-content li:hover {
   padding-left: 1rem;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.3);
   border-radius: 6px;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -493,7 +493,7 @@ body {
 .details-content li h4 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--black);
+  color: var(--white);
   margin: 0 0 0.75rem 0;
   line-height: 1.3;
   position: relative;
@@ -507,7 +507,7 @@ body {
   top: 0.5rem;
   width: 5px;
   height: 5px;
-  background: var(--pink);
+  background: var(--white);
   border-radius: 50%;
   opacity: 0;
   transition: all 0.3s ease;
@@ -522,7 +522,7 @@ body {
 .details-content li p {
   font-size: 0.95rem;
   line-height: 1.5;
-  color: rgba(60, 60, 60, 0.85);
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
   max-width: 90%;
   font-weight: 400;
