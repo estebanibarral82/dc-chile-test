@@ -11,6 +11,7 @@ class WebsiteApp {
 
   init() {
     this.addNoJSClass();
+    this.setupMobileViewportFix();
     this.setupCacheManagement();
     this.createToastContainer();
     this.createLoadingOverlay();
@@ -1489,6 +1490,47 @@ class WebsiteApp {
         console.log(`Retrying ${key}, attempt ${attempts + 1}`);
       }
     });
+  }
+
+  // Mobile Viewport Fix for iOS Safari and other mobile browsers
+  setupMobileViewportFix() {
+    // Fix for 100vh issues on mobile browsers
+    const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+      
+      // Also ensure banner adapts correctly
+      const banner = document.querySelector('.banner');
+      if (banner && window.innerWidth <= 480) {
+        const actualHeight = window.innerHeight;
+        console.log('Mobile viewport height adjusted:', actualHeight);
+        
+        // Force recalculation for iOS Safari
+        if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
+          setTimeout(() => {
+            document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+          }, 100);
+        }
+      }
+    };
+
+    // Set on load
+    setViewportHeight();
+    
+    // Set on resize and orientation change
+    window.addEventListener('resize', setViewportHeight);
+    window.addEventListener('orientationchange', () => {
+      setTimeout(setViewportHeight, 100);
+    });
+    
+    // iOS specific fix for viewport changes
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset === 0) {
+          setTimeout(setViewportHeight, 100);
+        }
+      }, { passive: true });
+    }
   }
 }
 
