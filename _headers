@@ -1,0 +1,12 @@
+# Headers for font files
+/assets/fonts/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000
+  
+# Headers for CSS files
+/assets/css/*
+  Cache-Control: public, max-age=86400
+  
+# Headers for images
+/assets/img/*
+  Cache-Control: public, max-age=86400

@@ -5,6 +5,7 @@ plugins:
 # Include files
 include:
   - _headers
+  - .htaccess
   - robots.txt
   - sitemap.xml
 
@@ -12,3 +13,8 @@ include:
 exclude:
   - README.md
   - .gitignore
+  - .DS_Store
+
+# MIME types for GitHub Pages
+plugins:
+  - jekyll-sitemap
