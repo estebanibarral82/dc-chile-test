@@ -81,6 +81,8 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .container {
@@ -327,6 +329,23 @@ body {
   margin: 0 0 2rem 0;
 }
 
+/* Responsive fix for services title */
+@media (max-width: 768px) {
+  .services-title {
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-title {
+    font-size: 1.8rem;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+}
+
 .intro-text {
   font-size: 1.2rem;
   line-height: 1.8;
@@ -459,6 +478,42 @@ body {
   line-height: 1.1;
 }
 
+/* Responsive fix for accordion titles */
+@media (max-width: 768px) {
+  .summary-content h3 {
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+  }
+  
+  .summary-content {
+    gap: 1rem;
+  }
+  
+  .summary-content::before {
+    font-size: 2.5rem;
+    min-width: 80px;
+    margin-right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-content h3 {
+    font-size: 1.8rem;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+  
+  .summary-content::before {
+    font-size: 2rem;
+    min-width: 60px;
+    margin-right: 0.5rem;
+  }
+  
+  .accordion summary {
+    padding: 2rem 1rem;
+  }
+}
+
 .summary-content p {
   margin: 0;
   color: var(--light-gray);
@@ -584,6 +639,7 @@ body {
   letter-spacing: 3px;
   line-height: 1.1;
   text-shadow: none;
+  padding: 0 1rem;
 }
 
 .trabajo-btn {
@@ -656,9 +712,10 @@ body {
   }
   
   .creatividad-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 2rem;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    padding: 0 1rem;
   }
   
   .trabajo-btn {
@@ -669,9 +726,16 @@ body {
 }
 
 @media (max-width: 480px) {
+  .creatividad {
+    padding: 4rem 0;
+  }
+  
   .creatividad-title {
-    font-size: 2rem;
-    letter-spacing: 1px;
+    font-size: 1.6rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+    padding: 0 0.5rem;
   }
   
   .trabajo-btn {
@@ -926,6 +990,65 @@ body {
 }
 
 /* ------------------------------------------
+   Contact Section Responsive Fixes
+------------------------------------------- */
+@media (max-width: 768px) {
+  .contact .section-title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    font-size: 1rem;
+  }
+  
+  .submit-btn {
+    padding: 1.2rem 2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact {
+    padding: 3rem 0;
+  }
+  
+  .contact .section-title {
+    font-size: 1.6rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 0.8rem 0;
+    font-size: 0.9rem;
+  }
+  
+  .checkbox-label {
+    font-size: 0.8rem;
+  }
+  
+  .submit-btn {
+    padding: 1rem 1.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+}
+
+/* ------------------------------------------
    Footer
 ------------------------------------------- */
 .footer {
@@ -983,6 +1106,25 @@ body {
   margin: 0 0 4rem 0;
   text-transform: uppercase;
   letter-spacing: 2px;
+  padding: 0 1rem;
+}
+
+/* Responsive fix for casos title */
+@media (max-width: 768px) {
+  .casos-title {
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+    margin: 0 0 3rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .casos-title {
+    font-size: 1.8rem;
+    letter-spacing: 0.5px;
+    margin: 0 0 2rem 0;
+    line-height: 1.2;
+  }
 }
 
 .casos-carousel {
@@ -1166,10 +1308,59 @@ body {
 }
 
 @media (max-width: 768px) {
-  /* ...existing code... */
+  /* General responsive adjustments */
+  .container {
+    padding: 0 1rem;
+  }
   
+  /* Hamburger menu adjustments */
+  .hamburger {
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .btn-close {
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+  }
+  
+  /* Menu text adjustments */
+  .menu-link {
+    font-size: 1.8rem;
+    letter-spacing: 1.5px;
+  }
+  
+  /* Intro text */
+  .intro {
+    padding: 3rem 1rem;
+  }
+  
+  .intro-text {
+    font-size: 1.1rem;
+    padding: 0 0.5rem;
+  }
+  
+  /* Accordion adjustments */
+  .details-content {
+    padding: 1rem 2rem;
+  }
+  
+  .details-content li h4 {
+    font-size: 1.1rem;
+  }
+  
+  .details-content li p {
+    font-size: 0.9rem;
+  }
+  
+  /* Carousel adjustments */
   .caso-item {
-    flex: 0 0 100vw; /* Each item is full viewport width */
+    flex: 0 0 100vw;
   }
   
   .carousel-controls {
@@ -1181,15 +1372,153 @@ body {
     height: 40px;
     font-size: 1.2rem;
   }
+  
+  /* Caso overlay adjustments */
+  .caso-overlay {
+    padding: 2rem;
+  }
+  
+  .caso-title {
+    font-size: 1.6rem;
+  }
+  
+  .caso-description {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
-  /* ...existing code... */
+  /* Ultra-mobile adjustments */
+  .container {
+    padding: 0 0.5rem;
+  }
   
+  /* Hamburger menu adjustments */
+  .hamburger {
+    top: 1rem;
+    right: 1rem;
+    width: 45px;
+    height: 45px;
+  }
+  
+  .hamburger-line {
+    width: 20px;
+  }
+  
+  .btn-close {
+    top: 1rem;
+    right: 1rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.8rem;
+  }
+  
+  /* Menu adjustments */
+  .menu-link {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+  
+  /* Intro section */
+  .intro {
+    padding: 2rem 0.5rem;
+  }
+  
+  .intro-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    padding: 0;
+  }
+  
+  /* Accordion ultra-mobile */
+  .details-content {
+    padding: 0.8rem 1rem;
+  }
+  
+  .details-content li {
+    padding: 1rem 0;
+  }
+  
+  .details-content li h4 {
+    font-size: 1rem;
+  }
+  
+  .details-content li p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  
+  /* Carousel ultra-mobile */
+  .casos {
+    padding: 4rem 0;
+  }
+  
+  .caso-overlay {
+    padding: 1.5rem;
+  }
+  
+  .caso-category {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .caso-title {
+    font-size: 1.4rem;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+  }
+  
+  .caso-description {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  
+  /* Form adjustments */
   .submit-btn {
     padding: 1rem 2rem;
     font-size: 0.85rem;
     letter-spacing: 1px;
+  }
+}
+
+/* Ultra-small screens (320px and below) */
+@media (max-width: 320px) {
+  /* Extreme mobile adjustments */
+  .creatividad-title,
+  .services-title,
+  .casos-title {
+    font-size: 1.4rem !important;
+    letter-spacing: 0px !important;
+    line-height: 1.2;
+    padding: 0 0.25rem !important;
+  }
+  
+  .summary-content h3 {
+    font-size: 1.5rem !important;
+    letter-spacing: 0px !important;
+  }
+  
+  .accordion summary {
+    padding: 1.5rem 0.5rem !important;
+  }
+  
+  .summary-content::before {
+    font-size: 1.5rem !important;
+    min-width: 50px !important;
+  }
+  
+  .trabajo-btn {
+    padding: 0.8rem 1.5rem !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .caso-title {
+    font-size: 1.2rem !important;
+  }
+  
+  .contact .section-title {
+    font-size: 1.4rem !important;
   }
 }
 
