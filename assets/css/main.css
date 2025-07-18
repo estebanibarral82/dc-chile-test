@@ -96,14 +96,22 @@ body {
   left: 6px;
   background: var(--black);
   color: var(--white);
-  padding: 8px;
+  padding: 8px 12px;
   text-decoration: none;
-  z-index: 1000;
+  z-index: 10001;
   border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: var(--transition);
+  opacity: 0;
+  visibility: hidden;
 }
 
 .skip-link:focus {
   top: 6px;
+  opacity: 1;
+  visibility: visible;
+  outline: 3px solid var(--pink);
 }
 
 /* ------------------------------------------
@@ -1709,34 +1717,6 @@ a:focus {
   outline: 3px solid var(--pink);
   outline-offset: 2px;
   border-radius: 4px;
-}
-
-/* Skip links improvement */
-.skip-links {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  z-index: 10000;
-}
-
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 6px;
-  background: var(--black);
-  color: var(--white);
-  padding: 8px 12px;
-  text-decoration: none;
-  z-index: 10001;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-.skip-link:focus {
-  top: 6px;
-  outline: 3px solid var(--pink);
 }
 
 /* ------------------------------------------
