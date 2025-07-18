@@ -36,3 +36,4 @@ node_modules/
 # Temporary folders
 tmp/
 temp/
+.DS_Store
