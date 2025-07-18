@@ -126,6 +126,64 @@ class WebsiteApp {
     document.body.style.overflow = '';
   }
 
+  // Responsive handlers for mobile/desktop differences
+  setupResponsiveHandlers() {
+    let resizeTimeout;
+    
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        this.updateResponsiveElements();
+      }, 250);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+    
+    // Initial setup
+    this.updateResponsiveElements();
+  }
+  
+  updateResponsiveElements() {
+    const isMobile = window.innerWidth <= 768;
+    const isTablet = window.innerWidth <= 1024 && window.innerWidth > 768;
+    
+    // Update mobile menu behavior
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    if (hamburger && mobileMenu) {
+      if (!isMobile && mobileMenu.classList.contains('active')) {
+        // Close mobile menu on desktop
+        hamburger.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+    
+    // Update video player sizing
+    const videoContainer = document.querySelector('.video-container');
+    if (videoContainer && this.youtubePlayer) {
+      if (isMobile) {
+        videoContainer.style.paddingBottom = '50vh';
+      } else {
+        videoContainer.style.paddingBottom = '56.25%';
+      }
+    }
+    
+    // Update lightbox sizing for mobile
+    const lightboxContent = document.querySelector('.lightbox-content');
+    if (lightboxContent) {
+      if (isMobile) {
+        lightboxContent.style.width = '95vw';
+        lightboxContent.style.height = '85vh';
+      } else {
+        lightboxContent.style.width = '90vw';
+        lightboxContent.style.height = '80vh';
+      }
+    }
+  }
+
   // Carousel functionality - disabled for 3 static cases
   setupCarousel() {
     console.log('Carousel disabled - showing 3 static cases');
