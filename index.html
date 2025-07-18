@@ -41,6 +41,9 @@
   
   <!-- Stylesheets -->
   <link rel="stylesheet" href="assets/css/main.css" />
+  
+  <!-- YouTube Player API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
   <!-- Skip to content for accessibility -->
@@ -251,14 +254,7 @@
     <section id="reel" class="reel">
       <div class="container">
         <div class="video-container">
-          <iframe 
-            src="https://www.youtube.com/embed/zoSeLSEFUrQ?rel=0&modestbranding=1&playsinline=1"
-            class="reel-video"
-            allowfullscreen
-            loading="lazy"
-            title="Dentsu Creative Chile Reel 2025"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-          </iframe>
+          <div id="youtube-player" class="reel-video"></div>
         </div>
       </div>
     </section>
