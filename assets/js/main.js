@@ -2,10 +2,17 @@ class WebsiteApp {
   constructor() {
     this.youtubePlayer = null;
     this.isVideoInView = false;
+    this.toastContainer = null;
+    this.loadingOverlay = null;
+    this.intersectionObserver = null;
+    this.retryAttempts = new Map();
     this.init();
   }
 
   init() {
+    this.addNoJSClass();
+    this.createToastContainer();
+    this.createLoadingOverlay();
     this.setupMobileMenu();
     this.setupAccordion();
     this.setupForm();
@@ -16,6 +23,107 @@ class WebsiteApp {
     this.setupResponsiveHandlers();
     this.setupCarousel();
     this.setupLightbox();
+    this.setupLazyLoading();
+    this.enhanceAccessibility();
+    this.setupPerformanceOptimizations();
+  }
+
+  addNoJSClass() {
+    document.documentElement.classList.remove('no-js');
+    document.documentElement.classList.add('js');
+  }
+
+  // Toast notification system
+  createToastContainer() {
+    this.toastContainer = document.createElement('div');
+    this.toastContainer.className = 'toast-container';
+    this.toastContainer.setAttribute('aria-live', 'polite');
+    this.toastContainer.setAttribute('aria-atomic', 'true');
+    document.body.appendChild(this.toastContainer);
+  }
+
+  showToast(message, type = 'info', title = null, duration = 5000) {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.setAttribute('role', 'alert');
+    
+    const icons = {
+      success: '✓',
+      error: '✕',
+      warning: '!',
+      info: 'i'
+    };
+
+    const titles = {
+      success: title || 'Éxito',
+      error: title || 'Error',
+      warning: title || 'Advertencia',
+      info: title || 'Información'
+    };
+
+    toast.innerHTML = `
+      <div class="toast-icon">${icons[type]}</div>
+      <div class="toast-content">
+        <div class="toast-title">${titles[type]}</div>
+        <div class="toast-message">${message}</div>
+      </div>
+      <button class="toast-close" aria-label="Cerrar notificación">×</button>
+    `;
+
+    this.toastContainer.appendChild(toast);
+
+    // Show toast
+    requestAnimationFrame(() => {
+      toast.classList.add('show');
+    });
+
+    // Auto remove after duration
+    const autoRemove = setTimeout(() => {
+      this.removeToast(toast);
+    }, duration);
+
+    // Manual close
+    const closeBtn = toast.querySelector('.toast-close');
+    closeBtn.addEventListener('click', () => {
+      clearTimeout(autoRemove);
+      this.removeToast(toast);
+    });
+
+    return toast;
+  }
+
+  removeToast(toast) {
+    toast.classList.remove('show');
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.parentNode.removeChild(toast);
+      }
+    }, 300);
+  }
+
+  // Loading overlay system
+  createLoadingOverlay() {
+    this.loadingOverlay = document.createElement('div');
+    this.loadingOverlay.className = 'loading-overlay';
+    this.loadingOverlay.innerHTML = `
+      <div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Cargando...</div>
+      </div>
+    `;
+    document.body.appendChild(this.loadingOverlay);
+  }
+
+  showLoading(text = 'Cargando...') {
+    const loadingText = this.loadingOverlay.querySelector('.loading-text');
+    loadingText.textContent = text;
+    this.loadingOverlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  hideLoading() {
+    this.loadingOverlay.classList.remove('show');
+    document.body.style.overflow = '';
   }
 
   // Carousel functionality - disabled for 3 static cases
@@ -277,24 +385,123 @@ class WebsiteApp {
       });
 
       if (isValid) {
-        // Add loading state
-        submitBtn.classList.add('loading');
-        submitBtn.disabled = true;
+        await this.submitForm(form, submitBtn);
+      } else {
+        this.showToast('Por favor, completa todos los campos requeridos correctamente.', 'error');
+        this.announce('Formulario contiene errores. Por favor revisa los campos.');
+      }
+    });
 
-        try {
-          // Simulate form submission
-          await new Promise(resolve => setTimeout(resolve, 2000));
-          
-          // Reset form
-          form.reset();
-          this.showSuccessMessage();
-        } catch (error) {
-          this.showErrorMessage();
-        } finally {
-          // Remove loading state
-          submitBtn.classList.remove('loading');
-          submitBtn.disabled = false;
+    // Real-time validation feedback
+    inputs.forEach(input => {
+      input.addEventListener('input', () => {
+        if (input.value.length > 0) {
+          this.validateField(input, true); // Silent validation
         }
+      });
+    });
+  }
+
+  async submitForm(form, submitBtn) {
+    // Add loading state
+    submitBtn.classList.add('loading', 'btn-loading-state');
+    submitBtn.disabled = true;
+    
+    this.showLoading('Enviando mensaje...');
+
+    try {
+      // Get form data
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+      
+      // Simulate API call with actual endpoint logic
+      const response = await this.sendFormData(data);
+      
+      if (response.success) {
+        // Reset form
+        form.reset();
+        this.clearAllErrors(form);
+        this.showToast('¡Mensaje enviado correctamente! Te contactaremos pronto.', 'success', 'Éxito');
+        this.announce('Mensaje enviado correctamente');
+        
+        // Track successful submission
+        if (window.gtag) {
+          gtag('event', 'form_submit', {
+            'event_category': 'contact',
+            'event_label': 'success'
+          });
+        }
+      } else {
+        throw new Error(response.message || 'Error al enviar el mensaje');
+      }
+    } catch (error) {
+      this.handleFormError(error, form);
+    } finally {
+      this.hideLoading();
+      submitBtn.classList.remove('loading', 'btn-loading-state');
+      submitBtn.disabled = false;
+    }
+  }
+
+  async sendFormData(data) {
+    // This would be your actual form submission logic
+    // For now, simulate different scenarios
+    
+    // Check if we're offline
+    if (!navigator.onLine) {
+      throw new Error('Sin conexión a internet. Por favor, verifica tu conexión y reintenta.');
+    }
+
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000));
+
+    // Simulate different responses
+    if (Math.random() < 0.1) { // 10% chance of error for testing
+      throw new Error('Error del servidor. Por favor, reintenta en unos momentos.');
+    }
+
+    return { success: true };
+  }
+
+  handleFormError(error, form) {
+    const retryKey = 'form-submission';
+    const attempts = this.retryAttempts.get(retryKey) || 0;
+    this.retryAttempts.set(retryKey, attempts + 1);
+
+    let message = 'Hubo un error al enviar tu mensaje. ';
+    
+    if (error.message.includes('conexión')) {
+      message += 'Verifica tu conexión a internet.';
+    } else if (attempts < 2) {
+      message += 'Reintentando automáticamente...';
+      
+      // Auto retry after 3 seconds
+      setTimeout(() => {
+        const submitBtn = form.querySelector('.submit-btn');
+        this.submitForm(form, submitBtn);
+      }, 3000);
+    } else {
+      message += 'Por favor, reintenta más tarde o contacta directamente.';
+    }
+
+    this.showToast(message, 'error', 'Error de envío');
+    this.announce('Error al enviar mensaje');
+    
+    // Track error
+    if (window.gtag) {
+      gtag('event', 'form_error', {
+        'event_category': 'contact',
+        'event_label': error.message
+      });
+    }
+  }
+
+  clearAllErrors(form) {
+    form.querySelectorAll('.form-group').forEach(group => {
+      group.classList.remove('error');
+      const errorMsg = group.querySelector('.error-message');
+      if (errorMsg) {
+        errorMsg.style.opacity = '0';
       }
     });
   }
@@ -617,67 +824,225 @@ class WebsiteApp {
     }
   }
 
-  // Responsive Handlers
-  setupResponsiveHandlers() {
-    let resizeTimer;
+  // Lazy loading system
+  setupLazyLoading() {
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            this.loadImage(img);
+            observer.unobserve(img);
+          }
+        });
+      }, {
+        rootMargin: '50px 0px',
+        threshold: 0.01
+      });
+
+      // Observe all images with data-src
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        img.classList.add('lazy-image');
+        imageObserver.observe(img);
+      });
+    } else {
+      // Fallback for older browsers
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        this.loadImage(img);
+      });
+    }
+  }
+
+  loadImage(img) {
+    const src = img.getAttribute('data-src');
+    if (!src) return;
+
+    img.classList.add('image-loading');
     
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        this.handleResize();
-      }, 250);
+    const tempImg = new Image();
+    tempImg.onload = () => {
+      img.src = src;
+      img.classList.remove('image-loading');
+      img.classList.add('loaded');
+      img.removeAttribute('data-src');
+    };
+    
+    tempImg.onerror = () => {
+      img.classList.remove('image-loading');
+      this.showImageError(img);
+    };
+    
+    tempImg.src = src;
+  }
+
+  showImageError(img) {
+    const container = img.parentNode;
+    const errorState = document.createElement('div');
+    errorState.className = 'error-state';
+    errorState.innerHTML = `
+      <div class="error-icon">⚠</div>
+      <div class="error-title">Error al cargar imagen</div>
+      <div class="error-message">No se pudo cargar la imagen. Verifica tu conexión.</div>
+      <button class="error-retry" onclick="location.reload()">Reintentar</button>
+    `;
+    
+    container.replaceChild(errorState, img);
+  }
+
+  // Enhanced accessibility
+  enhanceAccessibility() {
+    // Add skip links if not present
+    if (!document.querySelector('.skip-links')) {
+      const skipLinks = document.createElement('div');
+      skipLinks.className = 'skip-links';
+      skipLinks.innerHTML = `
+        <a href="#main-content" class="skip-link">Ir al contenido principal</a>
+        <a href="#contact" class="skip-link">Ir al formulario de contacto</a>
+      `;
+      document.body.insertBefore(skipLinks, document.body.firstChild);
+    }
+
+    // Enhance focus management
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        document.body.classList.add('using-keyboard');
+      }
     });
+
+    document.addEventListener('mousedown', () => {
+      document.body.classList.remove('using-keyboard');
+    });
+
+    // Add ARIA labels to interactive elements without them
+    document.querySelectorAll('button:not([aria-label]):not([aria-labelledby])').forEach(btn => {
+      if (!btn.textContent.trim()) {
+        btn.setAttribute('aria-label', 'Botón');
+      }
+    });
+
+    // Announce page navigation for screen readers
+    const announcer = document.createElement('div');
+    announcer.setAttribute('aria-live', 'polite');
+    announcer.setAttribute('aria-atomic', 'true');
+    announcer.className = 'sr-only';
+    announcer.style.cssText = 'position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;';
+    document.body.appendChild(announcer);
+    this.announcer = announcer;
+  }
+
+  announce(message) {
+    if (this.announcer) {
+      this.announcer.textContent = message;
+    }
+  }
+
+  // Performance optimizations
+  setupPerformanceOptimizations() {
+    // Preload critical resources
+    this.preloadCriticalResources();
     
-    window.addEventListener('orientationchange', () => {
-      setTimeout(() => {
-        this.handleOrientationChange();
-      }, 100);
+    // Setup performance monitoring
+    this.monitorPerformance();
+    
+    // Optimize animations
+    this.optimizeAnimations();
+    
+    // Setup network error handling
+    this.setupNetworkErrorHandling();
+  }
+
+  preloadCriticalResources() {
+    // Preload hero video poster
+    const heroVideo = document.querySelector('.reel-video');
+    if (heroVideo && heroVideo.poster) {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = heroVideo.poster;
+      document.head.appendChild(link);
+    }
+
+    // Preload critical fonts
+    const fontFiles = [
+      '/assets/fonts/StabilGrotesk-Black.otf',
+      '/assets/fonts/StabilGrotesk-Regular.otf'
+    ];
+
+    fontFiles.forEach(fontUrl => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'font';
+      link.type = 'font/otf';
+      link.crossOrigin = 'anonymous';
+      link.href = fontUrl;
+      document.head.appendChild(link);
     });
   }
-  
-  handleResize() {
-    const wasMobile = this.isMobile;
-    this.isMobile = window.innerWidth <= 768;
-    
-    if (wasMobile && !this.isMobile) {
-      const mobileMenu = document.getElementById('mobile-menu');
-      const btnMenu = document.getElementById('btn-menu');
+
+  monitorPerformance() {
+    // Monitor network quality
+    if ('connection' in navigator) {
+      const connection = navigator.connection;
       
-      if (mobileMenu?.classList.contains('active')) {
-        mobileMenu.classList.remove('active');
-        btnMenu?.classList.remove('active');
-        document.body.style.overflow = '';
+      if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+        // Reduce animation and heavy features for slow connections
+        document.body.classList.add('slow-connection');
+        this.showToast('Conexión lenta detectada. Algunas funciones pueden estar limitadas.', 'warning');
       }
     }
-    
-    this.adjustVideoHeight();
-  }
-  
-  handleOrientationChange() {
-    this.adjustVideoHeight();
-    
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenu?.classList.contains('active')) {
-      window.scrollTo(0, 0);
+
+    // Monitor Core Web Vitals
+    if ('web-vital' in window) {
+      // This would integrate with a monitoring service
+      console.log('Performance monitoring active');
     }
   }
-  
-  adjustVideoHeight() {
-    const video = document.querySelector('.reel-video');
-    const container = document.querySelector('.video-container');
-    
-    if (video && container) {
-      const isLandscape = window.innerWidth > window.innerHeight;
-      const isMobile = window.innerWidth <= 768;
-      
-      if (isMobile && isLandscape) {
-        container.style.height = '100vh';
-      } else if (isMobile) {
-        container.style.height = window.innerWidth <= 480 ? '50vh' : '60vh';
-      } else {
-        container.style.height = '100vh';
+
+  optimizeAnimations() {
+    // Add will-change to elements that will animate
+    const animatedElements = document.querySelectorAll('.fade-in-up, .carousel-btn, .hamburger');
+    animatedElements.forEach(el => {
+      el.classList.add('will-animate');
+    });
+
+    // Remove will-change after animation
+    document.addEventListener('animationend', (e) => {
+      e.target.classList.remove('will-animate');
+    });
+
+    // GPU acceleration for smooth animations
+    document.querySelectorAll('.mobile-menu, .lightbox, .toast').forEach(el => {
+      el.classList.add('gpu-accelerated');
+    });
+  }
+
+  setupNetworkErrorHandling() {
+    // Handle offline status
+    window.addEventListener('online', () => {
+      this.showToast('Conexión restaurada', 'success');
+      this.retryFailedRequests();
+    });
+
+    window.addEventListener('offline', () => {
+      this.showToast('Sin conexión a internet', 'warning', null, 0);
+    });
+
+    // Setup service worker for caching
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(err => {
+        console.log('Service Worker registration failed:', err);
+      });
+    }
+  }
+
+  retryFailedRequests() {
+    // Retry any failed form submissions or API calls
+    this.retryAttempts.forEach((attempts, key) => {
+      if (attempts < 3) {
+        // Implement retry logic based on the key
+        console.log(`Retrying ${key}, attempt ${attempts + 1}`);
       }
-    }
+    });
   }
 }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -52,12 +52,15 @@
   <!-- 1. Banner con menú hamburguesa y <img> responsive -->
   <header id="banner" class="banner">
     <img src="assets/img/DC-home.png" alt="Dentsu Creative Chile" class="banner-img" />
-    <button id="btn-menu" class="hamburger" aria-label="Abrir menú" aria-expanded="false">
+    <button id="btn-menu" class="hamburger touch-target touch-feedback" aria-label="Abrir menú" aria-expanded="false">
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
     </button>
   </header>
+
+  <!-- Main content -->
+  <main id="main-content">
 
   <!-- Menú overlay móvil -->
   <nav id="mobile-menu" class="mobile-menu" aria-hidden="true">
@@ -269,7 +272,13 @@
         <div class="casos-track" id="casos-track">
           <article class="caso-item" data-video="https://www.youtube.com/watch?v=BI1kPMin1qg">
             <div class="caso-image">
-              <img src="assets/img/16hrs.png" alt="16 horas, te hace bien - Calzados Gino" loading="lazy">
+              <img 
+                data-src="assets/img/16hrs.png" 
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0RERERERCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5Ij5DYXJnYW5kby4uLjwvdGV4dD48L3N2Zz4=" 
+                alt="16 horas, te hace bien - Calzados Gino" 
+                class="lazy-image"
+                loading="lazy"
+              >
               <div class="caso-overlay">
                 <span class="caso-category">TV Commercial</span>
                 <h3 class="caso-title">16 horas, te hace bien</h3>
@@ -280,7 +289,13 @@
           
           <article class="caso-item" data-video="https://www.youtube.com/shorts/NLOk7Bd9uzc">
             <div class="caso-image">
-              <img src="assets/img/gourmet.png" alt="Menú Musical con IA - Gourmet" loading="lazy">
+              <img 
+                data-src="assets/img/gourmet.png" 
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0RERERERCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5Ij5DYXJnYW5kby4uLjwvdGV4dD48L3N2Zz4=" 
+                alt="Menú Musical con IA - Gourmet" 
+                class="lazy-image"
+                loading="lazy"
+              >
               <div class="caso-overlay">
                 <span class="caso-category">Digital Innovation</span>
                 <h3 class="caso-title">Menú Musical con IA</h3>
@@ -291,7 +306,13 @@
           
           <article class="caso-item" data-video="https://www.youtube.com/watch?v=zM5UJfM7R3s">
             <div class="caso-image">
-              <img src="assets/img/nmc.png" alt="No más clavos, para todo - Agorex" loading="lazy">
+              <img 
+                data-src="assets/img/nmc.png" 
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzIwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI0RERERERCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5Ij5DYXJnYW5kby4uLjwvdGV4dD48L3N2Zz4=" 
+                alt="No más clavos, para todo - Agorex" 
+                class="lazy-image"
+                loading="lazy"
+              >
               <div class="caso-overlay">
                 <span class="caso-category">Brand Campaign</span>
                 <h3 class="caso-title">No más clavos, para todo</h3>
@@ -435,6 +456,8 @@
       </div>
     </div>
   </footer>
+
+  </main> <!-- Closing main content -->
 
   <script src="assets/js/main.js"></script>
 </body>
