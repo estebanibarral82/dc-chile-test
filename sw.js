@@ -1,7 +1,7 @@
 // Service Worker for Dentsu Creative Chile
 // Provides offline caching and performance improvements
 
-const CACHE_NAME = 'dc-chile-v2.0-202507181903';
+const CACHE_NAME = 'dc-chile-v2.0-202507181912';
 const CACHE_EXPIRY = 5 * 60 * 1000; // 5 minutes for development
 const FORCE_UPDATE = true; // Force update during development
 
@@ -9,8 +9,8 @@ const FORCE_UPDATE = true; // Force update during development
 const CRITICAL_RESOURCES = [
   '/',
   '/index.html',
-  '/assets/css/main.css?v=202507181903',
-  '/assets/js/main.js?v=202507181903',
+  '/assets/css/main.css?v=202507181912',
+  '/assets/js/main.js?v=202507181912',
   '/assets/fonts/StabilGrotesk-Black.otf',
   '/assets/fonts/StabilGrotesk-Regular.otf',
   '/assets/img/DC-home1.png'
